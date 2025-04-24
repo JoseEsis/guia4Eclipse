@@ -1,0 +1,27 @@
+program prog;
+var 
+	i,j:integer;
+process Uno; 
+
+begin
+	for i:=1 to 100 do 
+	begin 
+		writeln(1);
+	end;
+end;
+
+process Dos; 
+begin
+	for j:=1 to 100 do 
+	begin 
+		writeln(2);
+	end;
+end;
+begin
+	writeln('Inicio 1 y 2: ');
+	cobegin
+		Uno;
+		Dos; 
+	coend; 
+	writeln('Final');
+end.

@@ -1,0 +1,218 @@
+- Pascal-FC for IBM PC compatibles - 
+- GNU Compiler Version P5.2
+
+G L Davies  &  A Burns, University of York
+
+Compiler listing
+
+    1     0 program sumaMatricesV1;
+    2     0 var matA, matB, matC, matSuma: array[1..4, 1..4] of integer;
+    3     0     limSupFila, limInfFila, limSupCol, limInfCol: integer;
+    4     0 
+    5     0 process type ProcessSumaMatrices(limInfFila, limSupFila, limInfCol, limSupCol: integer);
+    6     0 var i,j: integer;
+    7     0 begin
+    8     0     for i:= limInfFila to limSupFila do
+    9     4         for j:= limInfCol to limSupCol do
+   10     8         begin
+   11     8             matSuma[i,j] := matA[i,j] + matB[i,j] + matC[i,j];
+   12    34         end;
+   13    36 end;
+   14    37 
+   15    37 var p1, p2, p3, p4: ProcessSumaMatrices;
+   16    37     i,j: integer;
+   17    37 
+   18    37 begin
+   19    37     for i:=1 to 4 do
+   20    41         for j:=1 to 4 do
+   21    45         begin
+   22    45             matA[i,j] := 1;
+   23    52             matB[i,j] := 2;
+   24    59             matC[i,j] := 3;
+   25    66             matSuma[i,j] := 0;
+   26    73         end;
+   27    75 
+   28    75     cobegin
+   29    76         p1(1,1,1,4);
+   30    84         p2(2,2,1,4);
+   31    92         p3(3,3,1,4);
+   32   100         p4(4,4,1,4);
+   33   108     coend;
+   34   109 
+   35   109     for i:=1 to 4 do
+   36   113         for j:=1 to 4 do
+   37   117         begin
+   38   117             writeln('Elemento ', i, ', ', j, ' de la matriz Suma: ', matSuma[i,j]);
+   39   135         end;
+   40   137 end.
+
+
+
+Symbol table
+
+    name       link      objekt       type         ref      nrm  lev  adr  aux
+
+ 45 _main        44     procedure   notyp           2      True    0   37    0
+ 46 any           0     variable    synch           0      True    1    5    0
+ 47 mata         46     variable    array           1      True    1    5    0
+ 48 matb         47     variable    array           1      True    1   21    0
+ 49 matc         48     variable    array           1      True    1   37    0
+ 50 matsuma      49     variable    array           1      True    1   53    0
+ 51 limsupfila   50     variable    integer         0      True    1   69    0
+ 52 liminffila   51     variable    integer         0      True    1   70    0
+ 53 limsupcol    52     variable    integer         0      True    1   71    0
+ 54 liminfcol    53     variable    integer         0      True    1   72    0
+ 55 processsum   54     type id     process         3      True    1    0    0
+ 56 liminffila    0     variable    integer         0      True    2    5    0
+ 57 limsupfila   56     variable    integer         0      True    2    6    0
+ 58 liminfcol    57     variable    integer         0      True    2    7    0
+ 59 limsupcol    58     variable    integer         0      True    2    8    0
+ 60 i            59     variable    integer         0      True    2    9    0
+ 61 j            60     variable    integer         0      True    2   10    0
+ 62 p1           55     variable    process         3      True    1   73    0
+ 63 p2           62     variable    process         3      True    1   74    0
+ 64 p3           63     variable    process         3      True    1   75    0
+ 65 p4           64     variable    process         3      True    1   76    0
+ 66 i            65     variable    integer         0      True    1   77    0
+ 67 j            66     variable    integer         0      True    1   78    0
+
+Generated P-code
+
+    0     ldadr        2         9          ;7
+    1     ldval.i      2         5          ;8
+    2     ldval.i      2         6          ;8
+    3     for1u.i      0        36          ;8
+    4     ldadr        2        10          ;8
+    5     ldval.i      2         7          ;9
+    6     ldval.i      2         8          ;9
+    7     for1u.i      0        35          ;9
+    8     ldadr        1        53          ;10
+    9     ldval.i      2         9          ;11
+   10     ixary.i      0         1          ;11
+   11     ldval.i      2        10          ;11
+   12     ixary.i      0         2          ;11
+   13     ldadr        1         5          ;11
+   14     ldval.i      2         9          ;11
+   15     ixary.i      0         1          ;11
+   16     ldval.i      2        10          ;11
+   17     ixary.i      0         2          ;11
+   18     rpadr.i      0         0          ;11
+   19     ldadr        1        21          ;11
+   20     ldval.i      2         9          ;11
+   21     ixary.i      0         1          ;11
+   22     ldval.i      2        10          ;11
+   23     ixary.i      0         2          ;11
+   24     rpadr.i      0         0          ;11
+   25     addop.i      0         0          ;11
+   26     ldadr        1        37          ;11
+   27     ldval.i      2         9          ;11
+   28     ixary.i      0         1          ;11
+   29     ldval.i      2        10          ;11
+   30     ixary.i      0         2          ;11
+   31     rpadr.i      0         0          ;11
+   32     addop.i      0         0          ;11
+   33     store.i      0         0          ;11
+   34     for2u.i      0         8          ;11
+   35     for2u.i      0         4          ;11
+   36     rproc        1         0          ;12
+   37     ldadr        1        77          ;18
+   38     ldcon.i      0         1          ;19
+   39     ldcon.i      0         4          ;19
+   40     for1u.i      0        75          ;19
+   41     ldadr        1        78          ;19
+   42     ldcon.i      0         1          ;20
+   43     ldcon.i      0         4          ;20
+   44     for1u.i      0        74          ;20
+   45     ldadr        1         5          ;21
+   46     ldval.i      1        77          ;22
+   47     ixary.i      0         1          ;22
+   48     ldval.i      1        78          ;22
+   49     ixary.i      0         2          ;22
+   50     ldcon.i      0         1          ;22
+   51     store.i      0         0          ;22
+   52     ldadr        1        21          ;22
+   53     ldval.i      1        77          ;23
+   54     ixary.i      0         1          ;23
+   55     ldval.i      1        78          ;23
+   56     ixary.i      0         2          ;23
+   57     ldcon.i      0         2          ;23
+   58     store.i      0         0          ;23
+   59     ldadr        1        37          ;23
+   60     ldval.i      1        77          ;24
+   61     ixary.i      0         1          ;24
+   62     ldval.i      1        78          ;24
+   63     ixary.i      0         2          ;24
+   64     ldcon.i      0         3          ;24
+   65     store.i      0         0          ;24
+   66     ldadr        1        53          ;24
+   67     ldval.i      1        77          ;25
+   68     ixary.i      0         1          ;25
+   69     ldval.i      1        78          ;25
+   70     ixary.i      0         2          ;25
+   71     ldcon.i      0         0          ;25
+   72     store.i      0         0          ;25
+   73     for2u.i      0        45          ;25
+   74     for2u.i      0        41          ;25
+   75     cobeg        0         0          ;26
+   76     mkstk        1        55          ;28
+   77     ldadr        1        73          ;28
+   78     procv        0         0          ;28
+   79     ldcon.i      0         1          ;29
+   80     ldcon.i      0         1          ;29
+   81     ldcon.i      0         1          ;29
+   82     ldcon.i      0         4          ;29
+   83     calls        1         8          ;29
+   84     mkstk        1        55          ;29
+   85     ldadr        1        74          ;29
+   86     procv        0         0          ;29
+   87     ldcon.i      0         2          ;30
+   88     ldcon.i      0         2          ;30
+   89     ldcon.i      0         1          ;30
+   90     ldcon.i      0         4          ;30
+   91     calls        1         8          ;30
+   92     mkstk        1        55          ;30
+   93     ldadr        1        75          ;30
+   94     procv        0         0          ;30
+   95     ldcon.i      0         3          ;31
+   96     ldcon.i      0         3          ;31
+   97     ldcon.i      0         1          ;31
+   98     ldcon.i      0         4          ;31
+   99     calls        1         8          ;31
+  100     mkstk        1        55          ;31
+  101     ldadr        1        76          ;31
+  102     procv        0         0          ;31
+  103     ldcon.i      0         4          ;32
+  104     ldcon.i      0         4          ;32
+  105     ldcon.i      0         1          ;32
+  106     ldcon.i      0         4          ;32
+  107     calls        1         8          ;32
+  108     coend        0         0          ;32
+  109     ldadr        1        77          ;33
+  110     ldcon.i      0         1          ;35
+  111     ldcon.i      0         4          ;35
+  112     for1u.i      0       137          ;35
+  113     ldadr        1        78          ;35
+  114     ldcon.i      0         1          ;36
+  115     ldcon.i      0         4          ;36
+  116     for1u.i      0       136          ;36
+  117     ldcon.i      0         9          ;38
+  118     wrstr        0         0          ;38
+  119     ldval.i      1        77          ;38
+  120     wrval.i      0         0          ;38
+  121     ldcon.i      0         2          ;38
+  122     wrstr        0         9          ;38
+  123     ldval.i      1        78          ;38
+  124     wrval.i      0         0          ;38
+  125     ldcon.i      0        20          ;38
+  126     wrstr        0        11          ;38
+  127     ldadr        1        53          ;38
+  128     ldval.i      1        77          ;38
+  129     ixary.i      0         1          ;38
+  130     ldval.i      1        78          ;38
+  131     ixary.i      0         2          ;38
+  132     rpadr.i      0         0          ;38
+  133     wrval.i      0         0          ;38
+  134     wrlin        0         0          ;38
+  135     for2u.i      0       117          ;38
+  136     for2u.i      0       113          ;38
+  137     stopx        0         0          ;39

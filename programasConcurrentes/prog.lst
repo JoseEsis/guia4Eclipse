@@ -1,0 +1,87 @@
+- Pascal-FC for IBM PC compatibles - 
+- GNU Compiler Version P5.2
+
+G L Davies  &  A Burns, University of York
+
+Compiler listing
+
+    1     0 program prog;
+    2     0 var 
+    3     0  i,j:integer;
+    4     0 process Uno; 
+    5     0 
+    6     0 begin
+    7     0  for i:=1 to 100 do 
+    8     4  begin 
+    9     4   writeln(1);
+   10     7  end;
+   11     8 end;
+   12     9 
+   13     9 process Dos; 
+   14     9 begin
+   15     9  for j:=1 to 100 do 
+   16    13  begin 
+   17    13   writeln(2);
+   18    16  end;
+   19    17 end;
+   20    18 begin
+   21    18  writeln('Inicio 1 y 2: ');
+   22    21  cobegin
+   23    22   Uno;
+   24    26   Dos; 
+   25    30  coend; 
+   26    31  writeln('Final');
+   27    34 end.
+
+
+
+Symbol table
+
+    name       link      objekt       type         ref      nrm  lev  adr  aux
+
+ 45 _main        44     procedure   notyp           2      True    0   18    0
+ 46 any           0     variable    synch           0      True    1    5    0
+ 47 i            46     variable    integer         0      True    1    5    0
+ 48 j            47     variable    integer         0      True    1    6    0
+ 49 uno          48     variable    process         3      True    1    7    0
+ 50 $            49     type id     process         3      True    1    0    0
+ 51 dos          50     variable    process         4      True    1    8    0
+ 52 $            51     type id     process         4      True    1    9    0
+
+Generated P-code
+
+    0     ldadr        1         5          ;6
+    1     ldcon.i      0         1          ;7
+    2     ldcon.i      0       100          ;7
+    3     for1u.i      0         8          ;7
+    4     ldcon.i      0         1          ;9
+    5     wrval.i      0         0          ;9
+    6     wrlin        0         0          ;9
+    7     for2u.i      0         4          ;9
+    8     rproc        1         0          ;10
+    9     ldadr        1         6          ;14
+   10     ldcon.i      0         1          ;15
+   11     ldcon.i      0       100          ;15
+   12     for1u.i      0        17          ;15
+   13     ldcon.i      0         2          ;17
+   14     wrval.i      0         0          ;17
+   15     wrlin        0         0          ;17
+   16     for2u.i      0        13          ;17
+   17     rproc        1         0          ;18
+   18     ldcon.i      0        14          ;21
+   19     wrstr        0         0          ;21
+   20     wrlin        0         0          ;21
+   21     cobeg        0         0          ;21
+   22     mkstk        1        50          ;22
+   23     ldadr        1         7          ;22
+   24     procv        0         0          ;22
+   25     calls        1         4          ;22
+   26     mkstk        1        52          ;23
+   27     ldadr        1         8          ;23
+   28     procv        0         0          ;23
+   29     calls        1         4          ;23
+   30     coend        0         0          ;24
+   31     ldcon.i      0         5          ;26
+   32     wrstr        0        14          ;26
+   33     wrlin        0         0          ;26
+   34     stopx        0         0          ;26
